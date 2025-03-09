@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
+from datetime import timedelta
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -37,11 +38,15 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'genres',
+
+    'rest_framework_simplejwt',
     'rest_framework',
+
+    'genres',
     'actors',
     'movies',
     'reviews',
+    'authentication',
 ]
 
 MIDDLEWARE = [
@@ -126,3 +131,17 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+#aqui eu estou configurando o DRF para indicar para ele que a classe de autenticação padrão é essa, do simplejwt
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    )
+    
+}
+
+#aqui eu posso mudar a lifetime da access token e do refresh token, colocando o tempo que eu quiser
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=5), 
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
+}
