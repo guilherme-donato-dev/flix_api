@@ -38,7 +38,7 @@ class MovieStatsView(views.APIView):  #esse é o tipo de view que você usa quan
         average_stars = Review.objects.aggregate(avg_stars=Avg('stars'))['avg_stars']
 
         return response.Response(data={
-               ' total_movies' : total_movies,
+               'total_movies' : total_movies,
                'movies_by_genre' : movies_by_genre,
                'total_reviews' : total_reviews,
                'average_stars' : round(average_stars, 1) if average_stars else 0,
